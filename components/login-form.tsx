@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Fingerprint, Lock, Mail } from "lucide-react"
@@ -19,20 +19,22 @@ export function LoginForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
+  
+  // Automatically redirect to dashboard when component mounts
+  useEffect(() => {
+    router.push("/dashboard")
+  }, [router])
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real app, we would authenticate the user here
-    // For now, we'll just redirect to the dashboard
     router.push("/dashboard")
   }
 
   const handleBiometricLogin = () => {
-    // In a real app, we would trigger biometric authentication here
-    // For now, we'll just redirect to the dashboard
     router.push("/dashboard")
   }
 
+  // We still return the form UI in case the redirect doesn't happen immediately
   return (
     <Card className="w-full">
       <CardHeader className="space-y-1">
